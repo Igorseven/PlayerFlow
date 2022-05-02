@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PlayerFlowX.Domain\PlayerFlowX.Domain.csproj" />
+    <ProjectReference Include="..\PlayerFlowX.Business\PlayerFlowX.Business.csproj" />
   </ItemGroup>
 
 </Project>
