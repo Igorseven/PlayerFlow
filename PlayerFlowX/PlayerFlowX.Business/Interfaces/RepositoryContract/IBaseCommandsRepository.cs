@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace PlayerFlowX.Business.Interfaces.RepositoryContract
 {
-    public interface BaseRepository<TEntity, TKey> : IDisposable where TEntity : class
+    public interface IBaseCommandsRepository<TEntity, TKey> : IDisposable where TEntity : class
     {
         Task<bool> SaveAsync(TEntity entity);
         Task<bool> UpdateAsync(TEntity entity);
-        Task DeleteAsync(TKey id);
-        bool HasObject(Expression<Func<TEntity, bool>> where);
+        Task<bool> DeleteAsync(TKey id);
+        bool HaveObjectInDb(Expression<Func<TEntity, bool>> where);
     }
 }

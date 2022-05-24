@@ -6,11 +6,6 @@
         public decimal TotalValue { get; set; }
         public decimal ValuePerPayment { get; set; }
 
-        public CreditCard(string clientName, string cardNumber, string cardCode, string validDate)
-            : base(clientName, cardNumber, cardCode, validDate)
-        {
-
-        }
 
         protected override string Pay(bool valid)
         {

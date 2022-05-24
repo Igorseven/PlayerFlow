@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PlayerFlowX.API.Settings;
+using PlayerFlowX.ApplicationServices.AutoMapperSettings;
 using PlayerFlowX.Ioc.DISettings;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace PlayerFlowX.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            AutoMapperConfigurations.Inicialize();
             services.SettingDependencyInjection(Configuration);
             services.AddControllers();
             services.AddCorsConfiguration();
@@ -46,7 +49,7 @@ namespace PlayerFlowX.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

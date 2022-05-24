@@ -6,11 +6,6 @@ namespace PlayerFlowX.Domain.Entities
     {
         public Guid PixNumber { get; set; }
 
-        public PaymentByPix(decimal value, string clientName, string cpf)
-            : base(value, clientName, cpf)
-        {
-            this.PixNumber = new Guid();
-        }
 
         public override string GenerateData(bool confirm)
         {

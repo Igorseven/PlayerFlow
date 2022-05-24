@@ -7,11 +7,6 @@ namespace PlayerFlowX.Domain.Entities
 
         public Guid NumberTicket { get; set; }
 
-        public PaymentByTicket(decimal value, string clientName, string cpf)
-            : base(value, clientName, cpf)
-        {
-            this.NumberTicket = new Guid();
-        }
 
         public override string GenerateData(bool confirm)
         {

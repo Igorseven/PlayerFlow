@@ -9,14 +9,6 @@
         public bool ConfirmPurchase { get; set; }
         
 
-        public CardPayment(string clientName, string cardNumber, string cardCode, string validDate)
-        {
-            this.ClientName = clientName;
-            this.CardNumber = cardNumber;
-            this.CardCode = cardCode;
-            this.ValidDate = validDate;
-        }
-
         protected abstract string Pay(bool valid);
 
     }

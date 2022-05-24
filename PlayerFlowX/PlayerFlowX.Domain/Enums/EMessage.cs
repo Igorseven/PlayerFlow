@@ -13,7 +13,7 @@ namespace PlayerFlowX.Domain.Enums
         [Description("{0} não encontrado.")]
         NotFound,
 
-        [Description("Não há registro de dados no sistema.")]
+        [Description("Não há registro na base dados do sistema.")]
         EmptyList,
 
         [Description("Selecione uma opção")]
