@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PlayerFlowX.API.Extensions;
 using PlayerFlowX.ApplicationServices.Interfaces;
 using PlayerFlowX.ApplicationServices.Requests.User;
 using PlayerFlowX.ApplicationServices.Responses.User;
@@ -16,23 +17,21 @@ namespace PlayerFlowX.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        private readonly ITokenService _tokenService;
 
-        public AccountController(IAccountService accountService, ITokenService tokenService)
+        public AccountController(IAccountService accountService)
         {
             this._accountService = accountService;
-            this._tokenService = tokenService;
         }
 
-        [AllowAnonymous]
-        [HttpGet("findUser/{name}")]
+        [HttpGet("Find_User")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(IEnumerable<DomainNotification>))]
-        public async Task<UserUpdateRequest> Get(string name)
+        public async Task<UserUpdateRequest> Get()
         {
-            return await this._accountService.GetUserByUserNameAsync(name);
+            var userName = User.GetUserName();
+            return await this._accountService.GetUserByUserNameAsync(userName);
         }
 
         [AllowAnonymous]
@@ -55,6 +54,20 @@ namespace PlayerFlowX.API.Controllers
         public async Task<UserLoginResponse> Post(UserLoginRequest userLogin)
         {
             return await this._accountService.CheckUserPasswordAsync(userLogin.UserName, userLogin.Password); 
+        }
+
+
+        [HttpPost("Update_User")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(IEnumerable<DomainNotification>))]
+        public async Task<UserUpdateResponse> Put(UserUpdateRequest userUpdate)
+        {
+            var user = await this._accountService.GetUserByUserNameAsync(User.GetUserName());
+            if (user == null) return new UserUpdateResponse { UserName = "Usuário", Message = "Usuário inválido" };
+
+            return await this._accountService.UpdateAccountAsync(userUpdate);
         }
     }
 }

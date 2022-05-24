@@ -1,4 +1,4 @@
-﻿using PlayerFlowX.Business.Extentions;
+﻿using PlayerFlowX.Business.Extensions;
 using PlayerFlowX.Business.Interfaces.OthersContracts;
 using PlayerFlowX.Domain.Enums;
 using System.Threading.Tasks;

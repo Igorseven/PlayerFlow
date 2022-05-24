@@ -1,4 +1,4 @@
-﻿namespace PlayerFlowX.Business.Extentions
+﻿namespace PlayerFlowX.Business.Extensions
 {
     public static class FormatExtention
     {

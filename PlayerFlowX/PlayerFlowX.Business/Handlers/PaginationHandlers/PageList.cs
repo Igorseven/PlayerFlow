@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlayerFlowX.Infra.EFCore.PaginationHandler
 {
-    public class PageList<TEntity>
+    public class PageList<TEntity> where TEntity : class
     {
         public List<TEntity> Result { get; set; }
         public int CurrentPage { get; set; }

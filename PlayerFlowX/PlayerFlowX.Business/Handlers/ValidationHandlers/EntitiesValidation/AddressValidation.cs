@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using PlayerFlowX.Business.Extentions;
+using PlayerFlowX.Business.Extensions;
 using PlayerFlowX.Domain.Entities;
 using PlayerFlowX.Domain.Enums;
 

@@ -17,6 +17,8 @@ namespace PlayerFlowX.ApplicationServices.AutoMapperSettings.EntitiesProfile
 
             CreateMap<User, UserLoginResponse>();
 
+            CreateMap<User, UserUpdateResponse>();
+
             CreateMap<User, UserResponse>();
         }
     }

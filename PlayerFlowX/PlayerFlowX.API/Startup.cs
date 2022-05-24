@@ -31,7 +31,7 @@ namespace PlayerFlowX.API
 
             AutoMapperConfigurations.Inicialize();
             services.SettingDependencyInjection(Configuration);
-            services.AddControllers();
+            services.AddControllersConfiguration();
             services.AddCorsConfiguration();
             services.AddFiltersConfigurations();
             services.AddSwaggerConfiguration();

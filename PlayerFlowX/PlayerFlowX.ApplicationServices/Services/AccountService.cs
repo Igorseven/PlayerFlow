@@ -4,12 +4,11 @@ using PlayerFlowX.ApplicationServices.AutoMapperSettings;
 using PlayerFlowX.ApplicationServices.Interfaces;
 using PlayerFlowX.ApplicationServices.Requests.User;
 using PlayerFlowX.ApplicationServices.Responses.User;
-using PlayerFlowX.Business.Extentions;
+using PlayerFlowX.Business.Extensions;
 using PlayerFlowX.Business.Interfaces.OthersContracts;
 using PlayerFlowX.Business.Interfaces.RepositoryContract;
 using PlayerFlowX.Domain.Enums;
 using PlayerFlowX.Domain.Identity;
-using System;
 using System.Threading.Tasks;
 
 namespace PlayerFlowX.ApplicationServices.Services
@@ -34,8 +33,7 @@ namespace PlayerFlowX.ApplicationServices.Services
 
         public async Task<UserLoginResponse> CheckUserPasswordAsync(string userName, string password)
         {
-            if (!await UserExistAsync(userName))
-                this._notification.AddNotification("Usuário", EMessage.NotFound.Description().FormatTo("User"));
+            
 
             var user = await this._userManager.Users
                 .SingleOrDefaultAsync(user => user.UserName == userName.ToLower());
@@ -83,16 +81,21 @@ namespace PlayerFlowX.ApplicationServices.Services
 
             if (this._notification.HasNotification() == true)
                 return null;
-
-            var userUpdateRequest = user.MapTo<User, UserUpdateRequest>();
-            return userUpdateRequest;
+            else
+            {
+                var userUpdateRequest = user.MapTo<User, UserUpdateRequest>();
+                return userUpdateRequest;
+            }
         }
 
-        public async Task<UserUpdateRequest> UpdateAccountAsync(UserUpdateRequest userUpdate)
+        public async Task<UserUpdateResponse> UpdateAccountAsync(UserUpdateRequest userUpdate)
         {
             var user = await this._userRepository.FindByUserNameAsync(userUpdate.UserName);
-
-            if (user == null) return null;
+            if (user == null)
+            {
+                this._notification.AddNotification("Usuário", "Usuário inválido.");
+                return null;
+            }
                 
             var token = await this._userManager.GeneratePasswordResetTokenAsync(user);
             var result = await this._userManager.ResetPasswordAsync(user, token, userUpdate.Password);
@@ -102,7 +105,7 @@ namespace PlayerFlowX.ApplicationServices.Services
             if (result.Succeeded && updateResult)
             {
                 var userReturn = await this._userRepository.FindByUserNameAsync(user.UserName);
-                var userUpdateRequest = userReturn.MapTo<User, UserUpdateRequest>();
+                var userUpdateRequest = userReturn.MapTo<User, UserUpdateResponse>();
                 return userUpdateRequest;
             }
             return null;

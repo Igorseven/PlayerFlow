@@ -11,6 +11,6 @@ namespace PlayerFlowX.ApplicationServices.Interfaces
         Task<UserUpdateRequest> GetUserByUserNameAsync(string userName);
         Task<UserLoginResponse> CheckUserPasswordAsync(string userName, string password);
         Task<UserResponse> CreateAccountAsync(UserSaveRequest userSave);
-        Task<UserUpdateRequest> UpdateAccountAsync(UserUpdateRequest userUpdate);
+        Task<UserUpdateResponse> UpdateAccountAsync(UserUpdateRequest userUpdate);
     }
 }
